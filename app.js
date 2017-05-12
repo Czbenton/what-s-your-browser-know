@@ -10,9 +10,8 @@ var openFile = function(event) {
     var input = event.target;
     var reader = new FileReader();
     reader.onload = function(obj) {
-        var text = reader.result;
+        var text = reader.result.replace(/(\r\n|\n|\r)/gm,"");
         var arr = text.split(' ')
-        // obj = {};
 
         for (i = 0; i < arr.length; i++) {
             if (arr[i] != '') {
@@ -22,6 +21,9 @@ var openFile = function(event) {
                 obj[arr[i]]++;
             }
         }
+
+        
+
         document.write('Object created:<br><pre>' + JSON.stringify(obj, null, ' '))
         console.log(obj);
     };
