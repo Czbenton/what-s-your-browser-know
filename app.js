@@ -5,8 +5,12 @@ if (window.File && window.FileReader) {
 }
 
 var obj = {};
+var countArray = [];
+var loader = document.getElementById("fileGetter");
+loader.addEventListener("change", openFile);
 
-var openFile = function(event) {
+function openFile(event) {
+    console.log("event ", event);
     var input = event.target;
     var reader = new FileReader();
     reader.onload = function(obj) {
@@ -14,20 +18,38 @@ var openFile = function(event) {
         var arr = text.split(' ')
 
         for (i = 0; i < arr.length; i++) {
-            if (arr[i] != '') {
-                if (!obj[arr[i]]) {
-                    obj[arr[i]] = 0;
+            let word = arr[i];
+            if (word) {
+                if (!obj[word]) {
+                    obj[word] = 0;
                 }
-                obj[arr[i]]++;
+                obj[word]+= 1;
             }
         }
 
-        
+        for(word in obj){
+            countArray.push({word: obj[word]});
+        }
+        console.log("countArray ", countArray);
 
-        document.write('Object created:<br><pre>' + JSON.stringify(obj, null, ' '))
+
+
+        document.write('Object created:<br><pre>' + JSON.stringify(countArray, null, ' '))
         console.log(obj);
     };
     reader.readAsText(input.files[0]);
 };
 
 console.log(obj);
+
+var tanner = {
+    name: "Tanner", 
+    age: 33
+}
+
+for(clownshoe in tanner){
+    console.log(tanner[clownshoe]); // tanner.name - age
+}
+
+
+
